@@ -21,20 +21,18 @@ namespace KursProject
             this.variables = variables;
             this.rules = rules;
 
+            var values = new DataGridViewTextBoxColumn();
+            values.HeaderText = String.Format("Значения");
+            mainDataGridView.Columns.Add(values);
+            var conditions = new DataGridViewTextBoxColumn();
+            conditions.HeaderText = String.Format("Условия");
+            mainDataGridView.Columns.Add(conditions);
             for (int i = 0; i < variables; i++) 
             {
                 var Column = new DataGridViewTextBoxColumn();
-                Column.HeaderText = String.Format("X{0}",i);
+                Column.HeaderText = String.Format("X{0}",i+1);
                 mainDataGridView.Columns.Add(Column);
             }
-            var conditions = new DataGridViewTextBoxColumn();
-            conditions.HeaderText = String.Format("conditions");
-            mainDataGridView.Columns.Add(conditions);
-            var values = new DataGridViewTextBoxColumn();
-            values.HeaderText = String.Format("values");
-            mainDataGridView.Columns.Add(values);
-
-
             
             var MasINT = new int[variables + 2];
             var MasSTRING = new string[variables + 2];
@@ -50,69 +48,51 @@ namespace KursProject
                 dcombo.Items.Add("=<");
                 mainDataGridView.Rows.Add(MasSTRING);
                 mainDataGridView.Rows[i].HeaderCell.Value = (i+1).ToString();
-                mainDataGridView.Rows[i].Cells[variables] = dcombo;
+                mainDataGridView.Rows[i].Cells[1] = dcombo;
             }
-            /*var StringMas = new String[variables+2];*/
-            
-
-            /*DataGridViewTextBoxColumn idColumn =
-            new DataGridViewTextBoxColumn();
-            idColumn.HeaderText = "ID";
-            idColumn.AutoSizeMode = DataGridViewAutoSizeColumnMode.None;
-            idColumn.Resizable = DataGridViewTriState.False;
-            idColumn.ReadOnly = true;
-            idColumn.Width = 20;
-
-            DataGridViewTextBoxColumn titleColumn =
-                new DataGridViewTextBoxColumn();
-            titleColumn.HeaderText = "Title";
-            titleColumn.AutoSizeMode =
-                DataGridViewAutoSizeColumnMode.AllCellsExceptHeader;
-
-            mainDataGridView.AutoSizeColumnsMode =
-                DataGridViewAutoSizeColumnsMode.Fill;
-
-            DataGridViewTextBoxColumn subTitleColumn =
-                new DataGridViewTextBoxColumn();
-            subTitleColumn.HeaderText = "Subtitle";
-            subTitleColumn.MinimumWidth = 50;
-            subTitleColumn.FillWeight = 100;
-
-            DataGridViewTextBoxColumn summaryColumn =
-            new DataGridViewTextBoxColumn();
-            summaryColumn.HeaderText = "Summary";
-            summaryColumn.MinimumWidth = 50;
-            summaryColumn.FillWeight = 200;
-
-            DataGridViewTextBoxColumn contentColumn =
-                new DataGridViewTextBoxColumn();
-            contentColumn.HeaderText = "Content";
-            contentColumn.MinimumWidth = 50;
-            contentColumn.FillWeight = 300;
-
-            mainDataGridView.Columns.AddRange(new DataGridViewTextBoxColumn[] {
-            idColumn, titleColumn, subTitleColumn,
-            summaryColumn, contentColumn });
-            mainDataGridView.Rows.Add(new String[] { "1" });
-            mainDataGridView.Rows[0].HeaderCell.Value = "12";
-
-            try
-            {
-                DataGridViewComboBoxCell dcombo = new DataGridViewComboBoxCell();
-                dcombo.Items.Add("A");
-                dcombo.Items.Add("B");
-                dcombo.Items.Add("C");
-                mainDataGridView.Rows[0].Cells[2] = dcombo;
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.Message, ex.Source);
-            }*/
+            var comboBox = new DataGridViewComboBoxCell();
+            comboBox.Items.Add("=");
+            comboBox.Items.Add(">=");
+            comboBox.Items.Add("=<");
+            mainDataGridView.Rows.Add(MasSTRING);
+            mainDataGridView.Rows[mainDataGridView.Rows.Count - 2].HeaderCell.Value = "-Z";
+            mainDataGridView.Rows[mainDataGridView.Rows.Count - 2].Cells[1] = comboBox;
+            mainDataGridView.RowHeadersWidth = 70;
         }
 
         private void calculateButton_Click(object sender, EventArgs e)
         {
+            var mas = new double[rules+1, variables+1];
+            var MasList = new List<List<double>>();
+            for (int i = 0; i < mainDataGridView.Rows.Count-1; i++) 
+            {
+                var doubleList = new List<double>();
+                for (int j = 0; j < mainDataGridView.Columns.Count; j++) 
+                {   
+                    if (j == 1) { continue; }
+                    doubleList.Add(Convert.ToDouble(mainDataGridView[j, i].Value));
+                }
+                MasList.Add(doubleList);
+            }
+            for (int i = 0; i < MasList.Count; i++) 
+            {
+                for (int j = 0; j < MasList[i].Count; j++) 
+                {
+                    mas[i, j] = MasList[i][j];
+                }
+            }
+            Simplex S = new Simplex(mas);
 
+            double[,] table_result;
+            double[] result = new double[variables];
+            table_result = S.Calculate(result);
+            string res = "";
+            for (int i =0; i<result.Length; i++)  
+            {
+                res += String.Format("X{0} = {1} \r\n", i, (int)result[i]);  
+            }
+
+            resultTextBox.Text = res;
         }
 
         private void Form2_FormClosed(object sender, FormClosedEventArgs e)
