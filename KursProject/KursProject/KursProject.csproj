@@ -7,34 +7,12 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Compile Include="obj\Debug\net5.0-windows\.NETCoreApp,Version=v5.0.AssemblyAttributes.cs" />
-    <Compile Include="obj\Debug\net5.0-windows\KursProject.AssemblyInfo.cs" />
-    <Compile Include="obj\Release\net5.0-windows\.NETCoreApp,Version=v5.0.AssemblyAttributes.cs" />
-    <Compile Include="obj\Release\net5.0-windows\KursProject.AssemblyInfo.cs" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Content Include="obj\KursProject.csproj.nuget.dgspec.json" />
-    <Content Include="obj\project.assets.json" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <None Include="obj\Debug\net5.0-windows\KursProject.AssemblyInfoInputs.cache" />
-    <None Include="obj\Debug\net5.0-windows\KursProject.assets.cache" />
-    <None Include="obj\Debug\net5.0-windows\KursProject.csproj.AssemblyReference.cache" />
-    <None Include="obj\Debug\net5.0-windows\KursProject.GeneratedMSBuildEditorConfig.editorconfig" />
-    <None Include="obj\KursProject.csproj.nuget.g.props" />
-    <None Include="obj\KursProject.csproj.nuget.g.targets" />
-    <None Include="obj\project.nuget.cache" />
-    <None Include="obj\Release\net5.0-windows\KursProject.AssemblyInfoInputs.cache" />
-    <None Include="obj\Release\net5.0-windows\KursProject.GeneratedMSBuildEditorConfig.editorconfig" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="bin\Debug\net5.0-windows\ref\" />
-    <Folder Include="bin\Release\net5.0-windows\ref\" />
-    <Folder Include="obj\Debug\net5.0-windows\ref\" />
-    <Folder Include="obj\Release\net5.0-windows\ref\" />
+    <Compile Remove="bin\**" />
+    <Compile Remove="obj\**" />
+    <EmbeddedResource Remove="bin\**" />
+    <EmbeddedResource Remove="obj\**" />
+    <None Remove="bin\**" />
+    <None Remove="obj\**" />
   </ItemGroup>
 
 </Project>

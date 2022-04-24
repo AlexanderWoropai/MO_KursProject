@@ -19,7 +19,16 @@ namespace KursProject
 
         private void resumeButton_Click(object sender, EventArgs e)
         {
-
+            if (variablesTextBox.Text == "" || rulesTextBox.Text == "") 
+            { 
+                MessageBox.Show("Введите ограничения!"); 
+                return; 
+            }
+            var variables = Convert.ToInt32(variablesTextBox.Text);
+            var rules = Convert.ToInt32(rulesTextBox.Text);
+            var newForm = new Form2(variables, rules);
+            newForm.Show();
+            Hide();
         }
     }
 }

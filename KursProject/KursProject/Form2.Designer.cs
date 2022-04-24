@@ -29,21 +29,21 @@ namespace KursProject
         /// </summary>
         private void InitializeComponent()
         {
-            this.dataGridView1 = new System.Windows.Forms.DataGridView();
+            this.mainDataGridView = new System.Windows.Forms.DataGridView();
             this.calculateButton = new System.Windows.Forms.Button();
             this.resultTextBox = new System.Windows.Forms.TextBox();
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.mainDataGridView)).BeginInit();
             this.SuspendLayout();
             // 
-            // dataGridView1
+            // mainDataGridView
             // 
-            this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridView1.Location = new System.Drawing.Point(12, 12);
-            this.dataGridView1.Name = "dataGridView1";
-            this.dataGridView1.RowHeadersWidth = 51;
-            this.dataGridView1.RowTemplate.Height = 29;
-            this.dataGridView1.Size = new System.Drawing.Size(776, 256);
-            this.dataGridView1.TabIndex = 0;
+            this.mainDataGridView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.mainDataGridView.Location = new System.Drawing.Point(12, 12);
+            this.mainDataGridView.Name = "mainDataGridView";
+            this.mainDataGridView.RowHeadersWidth = 51;
+            this.mainDataGridView.RowTemplate.Height = 29;
+            this.mainDataGridView.Size = new System.Drawing.Size(776, 256);
+            this.mainDataGridView.TabIndex = 0;
             // 
             // calculateButton
             // 
@@ -71,11 +71,12 @@ namespace KursProject
             this.ClientSize = new System.Drawing.Size(800, 600);
             this.Controls.Add(this.resultTextBox);
             this.Controls.Add(this.calculateButton);
-            this.Controls.Add(this.dataGridView1);
+            this.Controls.Add(this.mainDataGridView);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedToolWindow;
             this.Name = "Form2";
             this.Text = "Главная форма";
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
+            this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.Form2_FormClosed);
+            ((System.ComponentModel.ISupportInitialize)(this.mainDataGridView)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -83,7 +84,7 @@ namespace KursProject
 
         #endregion
 
-        private System.Windows.Forms.DataGridView dataGridView1;
+        private System.Windows.Forms.DataGridView mainDataGridView;
         private System.Windows.Forms.Button calculateButton;
         private System.Windows.Forms.TextBox resultTextBox;
     }
